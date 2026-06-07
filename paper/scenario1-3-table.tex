@@ -1,0 +1,36 @@
+\begin{table}[htbp]
+\centering
+\bicaption{场景1--3 稳态指标对比（Agent A 含 $\eta$ 奖励，Agent A0 不含）}
+         {Scenario 1--3 steady-state metric comparison (Agent A with $\eta$ reward, Agent A0 without)}
+\label{tab:scenario1-3}
+\small
+\begin{tabular}{lccccc}
+\toprule
+& Agent
+& $||\mathbf{p}||_\infty$
+& $||\boldsymbol{\omega}||_\infty$ (rad/s)
+& $\eta$ RMS
+& $T$ RMS (Nm) \\
+\midrule
+\multirow{2}{*}{场景1} &A   &          $4.57{\times}10^{-4}$  & $\mathbf{7.00{\times}10^{-6}}$ & $\mathbf{5.00{\times}10^{-5}}$ & $\mathbf{6.16{\times}10^{-4}}$ \\
+                       &A0  & $\mathbf{2.87{\times}10^{-4}}$ &          $1.17{\times}10^{-4}$  &          $6.87{\times}10^{-4}$  &          $4.91{\times}10^{-3}$ \\
+\cmidrule(lr){1-6}
+\multirow{2}{*}{场景2} &A   &          $4.57{\times}10^{-4}$  & $\mathbf{1.50{\times}10^{-5}}$ & $\mathbf{1.42{\times}10^{-4}}$ & $\mathbf{7.57{\times}10^{-4}}$ \\
+                       &A0  & $\mathbf{2.75{\times}10^{-4}}$ &          $1.68{\times}10^{-4}$  &          $1.12{\times}10^{-3}$  &          $5.75{\times}10^{-3}$ \\
+\cmidrule(lr){1-6}
+\multirow{2}{*}{场景3} &A   &          $4.57{\times}10^{-4}$  & $\mathbf{1.00{\times}10^{-5}}$ & $\mathbf{7.30{\times}10^{-5}}$ & $\mathbf{7.86{\times}10^{-4}}$ \\
+                       &A0  & $\mathbf{2.78{\times}10^{-4}}$ &          $8.00{\times}10^{-5}$  &          $5.59{\times}10^{-4}$  &          $3.98{\times}10^{-3}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent 表~\ref{tab:scenario1-3} 给出了两种智能体在场景1--3下的稳态阶段（$t>160$\,s）性能对比，其中粗体标示了各指标在A与A0之间的较优值。
+由表可见，引入柔性模态奖励的Agent A在角速度残差（$\|\boldsymbol{\omega}\|_\infty$）、模态位移RMS（$\eta$ RMS）和控制力矩RMS（$T$ RMS）三项指标上全面优于未引入该奖励的Agent A0，且优势幅度约在一个数量级左右。
+以场景1为例，A的$\|\boldsymbol{\omega}\|_\infty$较A0降低约94\%，$\eta$ RMS降低约93\%，$T$ RMS降低约87\%。
+上述结果表明，$\eta$收敛奖励项（$0.05/(\eta_\text{norm}+0.01)$）有效地引导策略网络在姿态机动过程中主动抑制柔性结构的振动激励，从而在稳态阶段获得更平滑的角速度响应与更低的控制能耗。
+
+然而，Agent A在MRP稳态指向精度（$\|\mathbf{p}\|_\infty$）上略逊于Agent A0：三个场景下A的$\|\mathbf{p}\|_\infty$均稳定在$4.57{\times}10^{-4}$，而A0则维持在$2.75{\times}10^{-4}{\sim}2.87{\times}10^{-4}$，约为A的$60\%$。
+这一现象可归因于奖励函数设计中的多目标权衡：A0的奖励函数仅包含姿态误差与角速度项，策略网络将全部控制资源集中于最小化MRP误差；而A需在姿态跟踪与振动抑制之间分配有限的控制力矩（饱和于$\pm 1$\,Nm），引入振动惩罚项后策略倾向于以微小的姿态精度损失换取振动模态的大幅衰减。
+从航天器工程角度而言，$10^{-4}$量级的MRP稳态误差已对应亚角秒级指向精度，在此精度水平下以可接受的姿态误差换取结构振动一个数量级的抑制是合理的工程折中。
+
+值得注意的是，上述规律在场景1（标准再定向）、场景2（非零初始角速度）和场景3（惯量矩阵摄动）中保持高度一致，表明两种奖励结构所诱导的控制策略差异不依赖于具体初始条件或模型参数的变化，而是由奖励函数中是否包含振动模态反馈项这一结构性差异所决定。场景2中A0的$\eta$ RMS略高于场景1（$1.12{\times}10^{-3}$ vs.\ $6.87{\times}10^{-4}$），说明初始角速度扰动会加剧柔性结构的残余振荡，而A的振动抑制效果在该扰动条件下依然稳健。

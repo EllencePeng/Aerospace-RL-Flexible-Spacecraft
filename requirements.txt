@@ -1,0 +1,12 @@
+torch>=2.0.0
+numpy==2.2.6
+scipy==1.13.1
+gym==0.26.2
+matplotlib==3.9.0
+plotly==5.22.0
+pandas==2.2.2
+tensorboardX==2.6.2.2
+tqdm==4.66.4
+nbformat==5.10.4
+jupyter>=1.0.0
+ipykernel>=6.0.0

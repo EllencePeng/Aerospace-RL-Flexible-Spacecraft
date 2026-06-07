@@ -1,0 +1,41 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,bm}
+\usepackage{booktabs}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{enumitem}
+
+\begin{document}
+
+\begin{table}[htbp]
+\centering
+\caption{Configurations of the five evaluation scenarios.}
+\label{tab:scenario_settings}
+\begin{tabular}{lccccc}
+\toprule
+\textbf{Setting}  & \textbf{S0} & \textbf{S1} & \textbf{S2} & \textbf{S3} & \textbf{S4} \\
+\midrule
+Non-zero initial $\bm{\omega}_0$ & --- & --- & $\surd$ & --- & --- \\
+Measurement noise       & --- & $\surd$ & $\surd$ & $\surd$ & $\surd$ \\
+Parameter mismatch      & --- & --- & --- & $\surd$ & $\surd$ \\
+Sinusoidal disturbance  & --- & --- & --- & $\surd$ & $\surd$ \\
+Actuator faults         & --- & --- & --- & --- & $\surd$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent\textbf{Notes:}
+\begin{itemize}[leftmargin=*, itemsep=0pt, topsep=4pt]
+\item \textbf{Initial conditions:} All scenarios share the same initial attitude $\bm{p}_0 = [0.3,\,0.1,\,-0.2]$ and controller gains ($k_p=30$, $k_d=60$). S2 uses a non-zero initial angular velocity $\bm{\omega}_0 = [0.02,\,-0.03,\,0.04]$\,rad/s; all other scenarios start from rest ($\bm{\omega}_0 = \bm{0}$).
+\item Measurement noise: Gaussian white noise on MRP ($\sigma_p = 7.0\times10^{-5}$, equivalent to $\sim$15\,arcsec star tracker accuracy) and angular velocity ($\sigma_\omega = 5.0\times10^{-5}$\,rad/s, typical MEMS gyro drift level).
+\item Parameter mismatch: the true moment of inertia matrix is perturbed to
+$\bm{J}_{\rm true} = \begin{bmatrix} 120 & 6 & 7 \\ 6 & 100 & 10 \\ 7 & 10 & 120 \end{bmatrix}$\,kg\,m$^2$
+(off-diagonal terms deviate from nominal $\bm{J}_{\rm nom} = \text{diag}(110,100,120)$\,kg\,m$^2$ by up to 10\,kg\,m$^2$), and the flexible parameters $\bm{\delta}$, $\bm{\omega}_n$, $\bm{\xi}$ are all scaled by $+10\%$ relative to nominal values.
+\item Sinusoidal disturbance: $\bm{d}(t) = [0.02\sin(t+1.2),\;0.03\sin(t+4.5),\;0.05\sin(t+0.9)]^\top$\,Nm. The amplitudes and phases are fixed across evaluation episodes to ensure reproducibility.
+\item Actuator faults (S4 only): combined multiplicative efficiency loss and additive bias fault modeled as $\bm{\tau}_{\rm actual} = (\bm{I} - \bm{E})\bm{\tau}_{\rm cmd} + \bar{\bm{u}}$, where the efficiency loss matrix $\bm{E}(t)$ and bias vector $\bar{\bm{u}}(t)$ are time-varying piecewise-constant profiles active during $t \in [20,180]$\,s.
+\item These five scenarios form a progressive uncertainty ladder: S0 establishes the pure baseline; S1 adds sensor imperfection; S2 further introduces a non-zero initial angular velocity; S3 layers model-plant mismatch and external sinusoidal disturbance; S4 represents the most demanding condition with concurrent actuator faults.
+\end{itemize}
+
+\end{document}

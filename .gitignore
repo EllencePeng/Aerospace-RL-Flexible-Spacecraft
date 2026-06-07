@@ -1,0 +1,12 @@
+.DS_Store
+__pycache__/
+*.pkl
+events.out.tfevents*
+prompt.md
+
+# LaTeX auxiliary files
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.synctex.gz
