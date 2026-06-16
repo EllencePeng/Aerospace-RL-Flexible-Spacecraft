@@ -512,7 +512,7 @@ parameters δ, ω_n, ξ all scaled by +10%.
 
 ```text
 d(t) = 0.2×10⁻³ · [
-    3cos(ω_d·t) + 4sin(3ω_d·t) − 10,
+    3cos(10ω_d·t) + 4sin(3ω_d·t) − 10,
   −1.5sin(2ω_d·t) + 3cos(5ω_d·t) + 15,
     3sin(10ω_d·t) − 8sin(4ω_d·t) + 10
 ]  (Nm),   ω_d = 0.1 rad/s
