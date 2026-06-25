@@ -1,6 +1,6 @@
 # RL-Flexible-Spacecraft
 
-## Deep RL for Flexible Spacecraft Attitude Tracking Control with Fault Tolerance
+## Fault-Tolerant Attitude Control of Flexible Spacecraft via Reinforcement Learning
 
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-ee4c2c.svg)](https://pytorch.org/)
@@ -9,8 +9,8 @@
 
 ![Aerospace Banner](Pics/Aerospace-banner.png)
 
-> **📰 Publication**: This work has been published in **MDPI Aerospace** journal:  
-> **Fault-Tolerant Attitude Control of Flexible Spacecraft via Reinforcement Learning**  
+> **📰 Publication**: This work has been published in **MDPI Aerospace** journal:
+> **Fault-Tolerant Attitude Control of Flexible Spacecraft via Reinforcement Learning**
 > 🔗 [https://www.mdpi.com/2226-4310/13/7/571](https://www.mdpi.com/2226-4310/13/7/571)
 
 ---
@@ -148,10 +148,10 @@ All three flags default to `False` for backward compatibility.
 When `use_param_uncertainty=True`, the environment maintains two parallel
 parameter sets:
 
-| Track     | Used By                     | Description                                  |
-| --------- | --------------------------- | -------------------------------------------- |
-| `_nom`  | Observer, AFT controller    | Nominal (design) values, never modified      |
-| `_true` | `dynamics()` (true plant) | May be perturbed from nominal in `reset()` |
+| Track     | Used By                     | Description                                 |
+| --------- | --------------------------- | ------------------------------------------- |
+| `_nom`  | Observer, AFT controller    | Nominal (design) values, never modified     |
+| `_true` | `dynamics()` (true plant) | May be perturbed from nominal in`reset()` |
 
 The `dynamics()` function gates between them:
 
@@ -719,4 +719,4 @@ The environment formulation and observer design are based on:
 
 ---
 
-Last updated: 2026-06-04
+Last updated: 2026-06-25
