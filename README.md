@@ -7,6 +7,12 @@
 [![Gym](https://img.shields.io/badge/Gym-0.26.2-brightgreen.svg)](https://www.gymlibrary.dev/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
+![Aerospace Banner](Pics/Aerospace-banner.png)
+
+> **📰 Publication**: This work has been published in **MDPI Aerospace** journal:  
+> **Fault-Tolerant Attitude Control of Flexible Spacecraft via Reinforcement Learning**  
+> 🔗 [https://www.mdpi.com/2226-4310/13/7/571](https://www.mdpi.com/2226-4310/13/7/571)
+
 ---
 
 ## Overview
