@@ -367,6 +367,8 @@ def plot_eta(t_sol, X_sol):
 
 
 
+import matplotlib.pyplot as plt
+
 def plot_states(t_sol, X_sol, Tr_sol, MDPI_style=False):
     """
     Matplotlib: plot state trajectories
@@ -377,6 +379,9 @@ def plot_states(t_sol, X_sol, Tr_sol, MDPI_style=False):
         Tr_sol: control torque series array (3xN), containing [Tr1-Tr3]
         MDPI_style: False=2x2 layout, True=1x4 layout (enlarged legend/title, x-axis suffix (s))
     """
+    # --- 修改点 1：启用 Unicode 减号 ---
+    plt.rcParams['axes.unicode_minus'] = True
+
     if not MDPI_style:
         # Core change: 2x2 layout, adjusted canvas size for typesetting
         fig, axes = plt.subplots(2, 2, figsize=(14, 9), constrained_layout=True)
@@ -409,7 +414,6 @@ def plot_states(t_sol, X_sol, Tr_sol, MDPI_style=False):
 
         # --- 2. Row 1, Col 2: Angular Velocity ((ii) Angular Velocity) ---
         ax_b = axes[0, 1]
-        # Legend with Greek letters ωₓ,ωᵧ,ω_z
         ax_b.plot(t_sol, X_sol[3], color='#008FD5', linewidth=1.5, linestyle='solid', label=r'$\omega_x$')
         ax_b.plot(t_sol, X_sol[4], color='#582A8A', linewidth=1.5, linestyle='solid', label=r'$\omega_y$')
         ax_b.plot(t_sol, X_sol[5], color='#EF3F22', linewidth=1.5, linestyle='solid', label=r'$\omega_z$')
@@ -431,7 +435,6 @@ def plot_states(t_sol, X_sol, Tr_sol, MDPI_style=False):
 
         # --- 3. Row 2, Col 1: Modal Displacement ((iii) Modal Displacement) ---
         ax_c = axes[1, 0]
-        # Legend with Greek letters η₁-η₄
         ax_c.plot(t_sol, X_sol[6], color='#008FD5', linewidth=1.5, linestyle='solid', label=r'$\eta_1$')
         ax_c.plot(t_sol, X_sol[7], color='#582A8A', linewidth=1.5, linestyle='solid', label=r'$\eta_2$')
         ax_c.plot(t_sol, X_sol[8], color='#EF3F22', linewidth=1.5, linestyle='solid', label=r'$\eta_3$')
@@ -473,7 +476,6 @@ def plot_states(t_sol, X_sol, Tr_sol, MDPI_style=False):
         ax_d.annotate('(iv) Torque Output', xy=(0.5, -0.15), xycoords='axes fraction',
                      ha='center', va='top', fontsize=16)
 
-        # Show plot
         plt.show()
 
     else:
@@ -483,7 +485,8 @@ def plot_states(t_sol, X_sol, Tr_sol, MDPI_style=False):
         fig.patch.set_alpha(0.0)
         fig.patch.set_facecolor('none')
 
-        tick_fmt = plt.FuncFormatter(lambda x, pos: f'{int(x)} (s)')
+        # --- 修改点 2：自定义格式化器，将 '-' 替换为 '−' ---
+        tick_fmt = plt.FuncFormatter(lambda x, pos: f'{int(x)} (s)'.replace('-', '−'))
         legend_fs = 24
         title_fs = 32
         label_fs = 24
